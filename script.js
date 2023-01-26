@@ -229,6 +229,14 @@ btnSort.addEventListener('click', function (e) {
   sorted = !sorted;
 });
 
+labelBalance.addEventListener('click', () => {
+  const balanceArr = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(balanceArr);
+});
+
 /////////////////////////////////////////////////
 // LECTURES
 
@@ -528,6 +536,7 @@ const overalBalance2 = accounts
 console.log(overalBalance2);
 */
 
+/*
 ///////////////////////////////////////////////////////////////
 ////Sorting Arrays
 
@@ -541,10 +550,10 @@ console.log(owners);
 //Numbers
 console.log(movements);
 
-/*
+
 return < 0, A, B (keep order)
 return > 0, B, A (switch order)
-*/
+
 
 //Ascending order
 // movements.sort((a, b) => {
@@ -563,3 +572,115 @@ console.log(movements);
 // });
 movements.sort((a, b) => b - a);
 console.log(movements);
+*/
+
+/*
+///////////////////////////////////////////////////////////////
+////More ways of Creating and Filling arrays
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const arr = [1, 2, 3, 4, 5, 6, 7];
+
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+//Empty arrays + fill method
+const x = new Array(7);
+console.log(x);
+console.log(x.map(() => 5));
+
+x.fill(1, 3, 5);
+console.log(x);
+
+arr.fill(23, 2, 6);
+console.log(arr);
+
+//Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+const q = Array.from(movements, (curr, i) => curr);
+console.log(q);
+*/
+
+///////////////////////////////////////////////////////////////
+////Challenge #4
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+//1.
+dogs.forEach(dog => {
+  dog.reccFood = Math.trunc(dog.weight ** 0.75 * 28);
+});
+console.log(dogs);
+
+// dogs.forEach(dog => {
+//   const saraDog = dog.owners.find(owner => owner === 'Sarah');
+//   if (saraDog && dog.curFood > dog.recommendedFood * 1.1) {
+//     console.log('Eating too much');
+//   } else if (saraDog && dog.curFood < dog.recommendedFood * 0.9) {
+//     console.log('Eating too little');
+//   }
+// });
+
+// const ownersEatTooMuch1 = dogs.flatMap(dog =>
+//   dog.curFood > dog.reccFood ? dog.owners : []
+// );
+// console.log(ownersEatTooMuch1);
+
+// const ownersEatTooLittle2 = dogs.flatMap(dog =>
+//   dog.curFood < dog.reccFood ? dog.owners : []
+// );
+// console.log(ownersEatTooLittle2);
+
+// console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+// console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little`);
+
+//2.
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah);
+console.log(
+  `Sarah's dog is eating ${
+    dogSarah.curFood > dogSarah.reccFood ? 'Much!' : 'Little'
+  }`
+);
+
+// 3.
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.reccFood)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.reccFood)
+  .flatMap(dog => dog.owners);
+
+console.log(ownersEatTooLittle);
+
+//4.
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little`);
+
+//5.
+console.log(dogs.some(dog => dog.curFood === dog.reccFood));
+
+//6.
+const checkEatingOkay = dog =>
+  dog.curFood > dog.reccFood * 0.9 && dog.curFood < dog.reccFood * 1.1;
+
+console.log(dogs.some(checkEatingOkay));
+
+//7.
+console.log(dogs.filter(checkEatingOkay));
+
+//8.
+
+//Sort it by recomended food portion in an ascending order.
+
+const dogsSorted = dogs.slice().sort((a, b) => a.reccFood - b.reccFood);
+console.log(dogsSorted);
