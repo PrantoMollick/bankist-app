@@ -186,6 +186,13 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimmer = function () {
+  //Set time to 5 minutes
+  let time = 120;
+
+  //call the timer each second
+};
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
@@ -281,14 +288,16 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(() => {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    //Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString());
+      //Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+    }, 3000);
   }
   inputLoanAmount.value = '';
 });
@@ -526,7 +535,7 @@ console.log(new Date(2023, 0, 30));
 //   )
 // );
 // console.log(new Date(2023, 0, 30));
-
+/*
 ////////////////////////////////////////////
 ////Internationalizing Number (INTL)
 
@@ -546,3 +555,24 @@ console.log(
   'US:       ',
   new Intl.NumberFormat(navigator.language, options).format(num)
 );
+*/
+//Settimeout
+/*const ingredients = ['olives', 'spinach'];
+const pizzaTimmer = setTimeout(
+  (ing1, ing2) => {
+    console.log(`Here is your pizza 🍕 with ${ing1} and ${ing2}`);
+  },
+  3000,
+  ...ingredients
+);
+
+console.log('waiting...');
+
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimmer);
+*/
+
+// setinterval
+// setInterval(() => {
+//   const now = new Date();
+//   console.log(now);
+// }, 1000);
